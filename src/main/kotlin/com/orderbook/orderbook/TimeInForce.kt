@@ -11,6 +11,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 enum class TimeInForce {
   GTC,
-  FOK,
-  IOC
+//  FOK,
+//  IOC
 }
