@@ -21,6 +21,18 @@ To run your application:
 ./gradlew clean run
 ```
 
+= Project API
+include::src/main/kotlin/com/orderbook/orderbook/Order.kt[tag=order-class]
+
+
+== Order Book
+
+[source,kotlin]
+----
+include::src/main/kotlin/com/orderbook/orderbook/OrderBookVerticle.kt[tag=get-orderbook]
+----
+
+
 == Help
 
 * https://vertx.io/docs/[Vert.x Documentation]
