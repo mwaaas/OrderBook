@@ -1,0 +1,23 @@
+{
+  "name": "Order book",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "installGradle": true,
+      "gradleVersion": "8.14.3"
+    },
+    // Manually installing Kotlin LSP extension because it is not available in the marketplace
+    "./features/kotlin-lsp": {
+      "version": "261.13587.0"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "/tmp/kotlin-lsp.vsix"
+      ]
+    }
+  },
+  "forwardPorts": [8000, 8080],
+}

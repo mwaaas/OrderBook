@@ -111,6 +111,20 @@ class OrderBookVerticle : VerticleBase() {
     return order;
   }
 
+  /* tag::get-orderbook[]
+   GET /orderbook
+
+   Returns the current order book snapshot.
+
+   See <<Order>> for details on the order structure.
+
+   Sample response:
+   Response 200 (application/json):
+   {
+       "bids": [],
+       "asks": []
+   }
+  end::get-orderbook[] */
   fun orderBookApiHandler(context: RoutingContext)
   {
     val orderBook = mapOf(
@@ -176,7 +190,7 @@ class OrderBookVerticle : VerticleBase() {
 
     router.get("/tradehistory").handler(::tradeHistoryApiHandler)
 
-    val port = config().getInteger("http.port", 8888)
+    val port = config().getInteger("http.port", 8000)
     return vertx
       .createHttpServer()
       .requestHandler(router)
