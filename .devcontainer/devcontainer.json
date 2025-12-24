@@ -20,4 +20,5 @@
     }
   },
   "forwardPorts": [8000, 8080],
+  "postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh"
 }
