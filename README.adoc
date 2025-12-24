@@ -26,6 +26,7 @@ To run your application:
 == Order Book
 
 The Order Book service exposes a REST API to manage buy and sell orders for a trading platform. The API allows users to create orders and to view trade history.
+You can interact with the api via api.http to walktthrough one scenario of creating an order and viewing trade history.
 
 === Endpoints
 

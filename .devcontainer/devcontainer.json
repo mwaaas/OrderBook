@@ -15,7 +15,8 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "/tmp/kotlin-lsp.vsix"
+        "/tmp/kotlin-lsp.vsix",
+        "humao.rest-client"
       ]
     }
   },
