@@ -22,22 +22,94 @@ To run your application:
 ```
 
 = Project API
-include::src/main/kotlin/com/orderbook/orderbook/Order.kt[tag=order-class]
-
 
 == Order Book
 
-[source,kotlin]
-----
-include::src/main/kotlin/com/orderbook/orderbook/OrderBookVerticle.kt[tag=get-orderbook]
-----
+The Order Book service exposes a REST API to manage buy and sell orders for a trading platform. The API allows users to create orders and to view trade history.
 
+=== Endpoints
 
-== Help
+==== Get All Orders
+* **URL:** `/orders`
+* **Method:** `GET`
+* **Description:** Retrieves a list of all orders in the order book.
+* **Response:**
+  * **Status Code:** `200 OK`
+  * **Body:** JSON array of order objects.
+  * **Example Response:**
 
-* https://vertx.io/docs/[Vert.x Documentation]
-* https://stackoverflow.com/questions/tagged/vert.x?sort=newest&pageSize=15[Vert.x Stack Overflow]
-* https://groups.google.com/forum/?fromgroups#!forum/vertx[Vert.x User Group]
-* https://discord.gg/6ry7aqPWXy[Vert.x Discord]
+  ```json
+        {
+          "Asks": {
+              "100.0": [
+                  {
+                      "id": "908e6359-401a-4e3a-9c41-a57df9dfd540",
+                      "type": "SELL",
+                      "price": 100.0,
+                      "quantity": 40.0,
+                      "createdAt": "2025-12-24T07:59:24.199613Z",
+                      "currencyPair": "BTC-USD",
+                      "customerOrderId": "1234"
+                  }
+              ]
+          },
+          "Bids": {}
+        }
+  ```
 
+==== Create Order
+* **URL:** `/order/limit`
+* **Method:** `POST`
+* **Description:** Creates a new order in the order book.
+* **Request Body:** JSON object representing the order to be created.
+* **Response:**
+  * **Status Code:** `201 Created`
+  * **Body:** JSON object of the created order.
+* **Example Request:**
 
+  ```json
+      {
+        "side": "SELL",
+        "quantity": "40",
+        "price": "100",
+        "postOnly": true,
+        "customerOrderId": "1234",
+        "timeInForce": "GTC"
+      }
+  ```
+Note currently only GTC (Good Till Cancelled) is supported for timeInForce.
+
+* **Example Response:**
+
+  ```json
+       {
+          "id": "908e6359-401a-4e3a-9c41-a57df9dfd540"
+      }
+  ```
+
+== Trade History
+
+The Trade History service exposes a REST API to retrieve historical trade data.
+* **URL:** `/trades/history`
+* **Method:** `GET`
+* **Description:** Retrieves a list of historical trades.
+* **Response:**
+  * **Status Code:** `200 OK`
+  * **Body:** JSON array of trade objects.
+* **Example Response:**
+
+  ```json
+      [
+        {
+            "price": 100.0,
+            "quantity": 10.0,
+            "currencyPair": "BTC-USD",
+            "tradedAt": "2025-12-24T08:02:52.292688Z",
+            "takerSide": "BUY",
+            "id": "b984834a-c96a-4a01-8ffd-3001101991a3",
+            "quoteVolume": 1000.0,
+            "buyOrderId": "c9296631-073f-4718-a5a3-faec58a44428",
+            "sellOrderId": "908e6359-401a-4e3a-9c41-a57df9dfd540"
+        }
+      ]
+  ```
